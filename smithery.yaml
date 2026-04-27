@@ -1,0 +1,144 @@
+# Smithery Registry — hive-mcp-cdn
+# https://smithery.ai
+
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  url: https://hive-mcp-cdn.onrender.com/mcp
+
+name: hive-mcp-cdn
+displayName: hive-mcp-cdn — Edge cache shim
+version: "1.0.0"
+description: >
+  Edge cache shim for A2A capabilities. Two-tier cache (in-memory LRU plus
+  SQLite warm tier) with ETag and If-None-Match support, per-key TTL via
+  Cache-Control, and a purge endpoint. Metered through x402 at $0.0002 per
+  request and $0.05 per GB of body bytes served. Inbound only.
+
+author:
+  name: Steve Rotzin
+  email: steve@thehiveryiq.com
+  url: https://www.thehiveryiq.com
+
+license: MIT
+homepage: https://github.com/srotzin/hive-mcp-cdn
+repository:
+  type: git
+  url: https://github.com/srotzin/hive-mcp-cdn
+
+transport: streamable-http
+endpoint: https://hive-mcp-cdn.onrender.com/mcp
+protocol: "2024-11-05"
+
+categories:
+  - infrastructure
+  - agent-to-agent
+  - cache
+  - cdn
+
+tags:
+  - mcp
+  - hive
+  - cdn
+  - edge-cache
+  - x402
+  - 402
+  - etag
+  - lru
+  - sqlite
+  - ai-agents
+  - a2a
+  - usdc
+  - base-l2
+
+tools:
+  - name: cdn_cache_get
+    description: >
+      Read a cached object by key. Returns body, content type, ETag, age,
+      and freshness. Tier 2; $0.0002 per request plus $0.05 per GB of body
+      bytes served via x402.
+    inputs:
+      - name: key
+        type: string
+        required: true
+        description: "Opaque cache key (max 512 chars)."
+      - name: if_none_match
+        type: string
+        required: false
+        description: "Optional ETag. Matching ETag returns a 304-equivalent with no body."
+  - name: cdn_cache_put
+    description: >
+      Store an object under a key with optional Cache-Control max-age.
+      Tier 0, free. Body may be a string, JSON value, or { base64: string }
+      for binary.
+    inputs:
+      - name: key
+        type: string
+        required: true
+      - name: body
+        type: any
+        required: true
+      - name: content_type
+        type: string
+        required: false
+      - name: cache_control
+        type: string
+        required: false
+        description: "max-age=<seconds>. Default 300s."
+  - name: cdn_purge
+    description: >
+      Purge a single cache entry by key. Tier 0, idempotent.
+    inputs:
+      - name: key
+        type: string
+        required: true
+
+runtime:
+  type: node
+  version: ">=18"
+  command: node server.js
+  env:
+    - name: PORT
+      default: "3000"
+      required: false
+    - name: ENABLE
+      default: "true"
+      required: false
+    - name: WALLET_ADDRESS
+      default: "0x15184bf50b3d3f52b60434f8942b7d52f2eb436e"
+      required: false
+    - name: CDN_PRICE_PER_REQUEST_USD
+      default: "0.0002"
+      required: false
+    - name: CDN_PRICE_PER_GB_EGRESS_USD
+      default: "0.05"
+      required: false
+    - name: CDN_PREPAY_BUNDLE_USD
+      default: "1.0"
+      required: false
+    - name: CDN_DEFAULT_TTL_S
+      default: "300"
+      required: false
+    - name: CDN_LRU_MAX_ENTRIES
+      default: "1024"
+      required: false
+    - name: CDN_LRU_MAX_BYTES
+      default: "67108864"
+      required: false
+    - name: CDN_MAX_OBJECT_BYTES
+      default: "4194304"
+      required: false
+    - name: CDN_DB_PATH
+      default: "/tmp/cdn.db"
+      required: false
+
+brand:
+  color: "#C08D23"
+  name: "Hive Civilization gold (Pantone 1245 C)"
+
+policy:
+  inbound_only: true
+  default_enable: true

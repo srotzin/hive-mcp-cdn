@@ -1,0 +1,21 @@
+node_modules/
+npm-debug.log*
+.npm
+.env
+.env.local
+*.log
+*.pid
+
+# SQLite
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/

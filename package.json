@@ -1,0 +1,43 @@
+{
+  "name": "hive-mcp-cdn",
+  "version": "1.0.0",
+  "description": "Edge cache shim for A2A capabilities. In-memory LRU + SQLite warm tier, ETag/If-None-Match, purge endpoint. $0.0002/request and $0.05/GB egress via x402. Hive Civilization. Inbound only.",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "hive-mcp-cdn": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mcp",
+    "hive",
+    "cdn",
+    "edge-cache",
+    "x402",
+    "402",
+    "etag",
+    "lru",
+    "sqlite",
+    "ai-agents",
+    "a2a",
+    "usdc",
+    "base-l2"
+  ],
+  "author": "Steve Rotzin <steve@thehiveryiq.com> (https://www.thehiveryiq.com)",
+  "license": "MIT",
+  "homepage": "https://github.com/srotzin/hive-mcp-cdn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srotzin/hive-mcp-cdn"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "better-sqlite3": "^11.3.0"
+  }
+}
