@@ -1,5 +1,7 @@
 # hive-mcp-cdn
 
+[![srotzin/hive-mcp-cdn MCP server](https://glama.ai/mcp/servers/srotzin/hive-mcp-cdn/badges/score.svg)](https://glama.ai/mcp/servers/srotzin/hive-mcp-cdn)
+
 **Edge cache for A2A capabilities — Hive Civilization**
 
 A small, inbound-only MCP server that caches arbitrary objects (agent cards, capability manifests, signed envelopes, anything an A2A pipeline reads more than once). Two-tier storage with an in-memory LRU and a SQLite warm tier, ETag and If-None-Match support, a purge endpoint, and per-request and per-GB metering through x402.
