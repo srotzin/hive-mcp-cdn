@@ -37,7 +37,7 @@
     "node": "22.x"
   },
   "dependencies": {
-    "express": "^4.19.2",
+    "express": "^4.22.2",
     "better-sqlite3": "^12.9.0"
   }
 }
